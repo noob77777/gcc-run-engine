@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "async-redis": "^1.1.7",
     "express": "^4.17.1",
-    "expressjs": "^1.0.1"
+    "expressjs": "^1.0.1",
+    "redis": "^3.0.2"
   },
   "devDependencies": {},
   "scripts": {

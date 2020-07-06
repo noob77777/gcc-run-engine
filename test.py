@@ -1,6 +1,6 @@
 import requests
 
-key = 's33'
+key = 'ws33xy'
 stdin = '1\n'
 sourceCode = """
 #include<bits/stdc++.h>

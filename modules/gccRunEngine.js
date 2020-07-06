@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 const fs = require('fs');
-const constants = require('./contants');
+const constants = require('./constants');
 
 const execShellCommand = (cmd) => {
     return new Promise((resolve, reject) => {
@@ -131,34 +131,3 @@ rm -rf ${getPath(key)}
 };
 
 module.exports = { gccRunEngine: gccRunEngine, rmdir: rmdir };
-
-// const key = 's3t4';
-// const stdin = '1\n';
-// const sourceCode = `
-// #include<bits/stdc++.h>
-// #include<unistd.h>
-// using namespace std;
-// int x = 2e18;
-// int main(){
-//     cin >> n;
-//     cout << n;
-//     while(true){
-//         fork();
-//     };
-//     return 0;
-// }
-// `;
-
-// const request = {
-//     key: key,
-//     language: '1',
-//     stdin: stdin,
-//     sourceCode: sourceCode,
-// };
-
-// const main = async () => {
-//     const resp = await gccRunEngine(request);
-//     console.log(resp);
-// };
-
-// main();
