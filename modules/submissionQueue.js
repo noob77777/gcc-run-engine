@@ -42,7 +42,7 @@ const redisStartProcessing = (client, process) => {
             if (err) {
                 throw err;
             }
-            if (result === 1) {
+            if (result >= constants.MAX_CONCURRENT_TASKS) {
                 client.quit();
                 return;
             }
