@@ -8,8 +8,6 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => res.send('{ name : "gccRunEngine" }'));
 
 io.on('connection', (client) => {
-    console.log('Connected ' + client.id);
-
     client.on('request', (data) => {
         handleSocketRequest({ request: data, client_id: client.id });
     });
