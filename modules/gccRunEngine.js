@@ -73,6 +73,7 @@ const gccRunEngine = async (request) => {
         code: 'NA',
         stderr: '',
         stdout: '',
+        key: key,
     };
 
     if (!key || !language) return result;

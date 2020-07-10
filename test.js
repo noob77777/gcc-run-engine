@@ -26,6 +26,7 @@ const stdin = `
 `;
 
 const request = {
+    requestType: 'run',
     sourceCode: sourceCode,
     key: key,
     language: language,
@@ -33,5 +34,5 @@ const request = {
 };
 
 for (let i = 0; i < 100; i++) {
-    socket.emit('request', { ...request, key: i+1 });
+    socket.emit('request', { ...request, key: i + 1 });
 }
