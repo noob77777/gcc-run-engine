@@ -1,5 +1,5 @@
 const io = require('socket.io-client');
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3000/');
 
 socket.on('response', (data) => {
     console.log(data);
@@ -26,13 +26,13 @@ const stdin = `
 `;
 
 const request = {
-    requestType: 'run',
-    sourceCode: sourceCode,
+    requestType: 'delete',
+    stdin: stdin,
+    stdout: '10',
     key: key,
     language: language,
-    stdin: stdin,
 };
 
-for (let i = 0; i < 100; i++) {
-    socket.emit('request', { ...request, key: i + 1 });
+for (let i = 0; i < 1; i++) {
+    socket.emit('request', { ...request, key: 's3t' });
 }
