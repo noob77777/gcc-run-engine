@@ -3,6 +3,8 @@ const socket = io('http://localhost:3000');
 
 socket.on('response', (data) => {
     console.log(data);
+    if (data.key === 'testzp3e') {
+    }
 });
 
 const sourceCode = `
@@ -26,13 +28,14 @@ const stdin = `
 `;
 
 const request = {
-    requestType: 'run',
+    requestType: 'check',
     sourceCode: sourceCode,
+    stdin: '10',
+    stdout: '10 10',
     key: key,
     language: language,
-    stdin: stdin,
 };
 
-for (let i = 0; i < 100; i++) {
-    socket.emit('request', { ...request, key: i + 1 });
+for (let i = 0; i < 1; i++) {
+    socket.emit('request', { ...request, key: 's3t' });
 }
