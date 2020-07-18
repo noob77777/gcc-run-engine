@@ -1,22 +1,22 @@
 const LOG =(error) => {
   const fs = require('fs');
 
-  var dir = './LogFiles';
+  const dir = './LogFiles';
 
   if (!fs.existsSync(dir)){
       fs.mkdirSync(dir);
   }
 
-  var dateObj = new Date();
-  var month = dateObj.getUTCMonth() + 1;
-  var day = dateObj.getUTCDate();
-  var year = dateObj.getUTCFullYear();
+  const dateObj = new Date();
+  const month = dateObj.getUTCMonth() + 1;
+  const day = dateObj.getUTCDate();
+  const year = dateObj.getUTCFullYear();
 
-  var fileName = year + "/" + month + "/" + day;
+  const fileName = year + "/" + month + "/" + day;
 
-  var content=dateObj.toString().replace(/T/, ':').replace(/\.\w*/, '')+'\t'+error.toString()+'\n\n'
+  const content=dateObj.toString().replace(/T/, ':').replace(/\.\w*/, '')+'\t'+error.toString()+'\n\n'
 
-  fs.appendFile('dir/'+fileName,content,function (err) {if (err) throw err;})
+  fs.appendFile('dir/'+fileName,content,function (err) {})
 
 };
 
