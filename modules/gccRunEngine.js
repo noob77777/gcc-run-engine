@@ -36,10 +36,16 @@ cat ${getFile(key)}.in | timeout ${constants.MAX_TIMEOUT}s ${getFile(key)}
     return { status: 'OK', stdout: stdout, stderr: stderr };
 };
 
-const compileSource = async (key) => {
-    const cmd = `
+const compileSource = async (key, language) => {
+    const cmd =
+        language === '1'
+            ? `
 g++ ${getFile(key)}.cpp -o ${getFile(key)} -w
+`
+            : `
+gcc ${getFile(key)}.c -o ${getFile(key)} -w
 `;
+
     const { error, stdout, stderr } = await execShellCommand(cmd);
 
     if (error) {
@@ -53,7 +59,7 @@ g++ ${getFile(key)}.cpp -o ${getFile(key)} -w
     };
 };
 
-const sourcePreprocess = ({ key, stdin, sourceCode }) => {
+const sourcePreprocess = ({ key, stdin, sourceCode, language }) => {
     try {
         if (!fs.existsSync(getPath(key))) {
             fs.mkdirSync(getPath(key));
@@ -61,8 +67,11 @@ const sourcePreprocess = ({ key, stdin, sourceCode }) => {
         if (stdin) {
             fs.writeFileSync(getFile(key) + '.in', stdin);
         }
-        if (sourceCode) {
+        if (sourceCode && language === '1') {
             fs.writeFileSync(getFile(key) + '.cpp', sourceCode);
+        }
+        if (sourceCode && language === '0') {
+            fs.writeFileSync(getFile(key) + '.c', sourceCode);
         }
     } catch (error) {
         console.log(`error: ${error.message}`);
@@ -93,7 +102,7 @@ const gccRun = async (request) => {
 
     if (!key || !language) return result;
 
-    if (language === '1') {
+    if (language === '1' || language === '0') {
         const filesCreated = sourcePreprocess({ ...request });
         result.status = filesCreated.status;
         if (filesCreated.status !== 'OK') {
@@ -101,7 +110,7 @@ const gccRun = async (request) => {
             return result;
         }
 
-        const compiled = await compileSource(key);
+        const compiled = await compileSource(key, language);
         result.status = compiled.status;
         if (compiled.status !== 'OK') {
             result.message = 'Internal system error';
@@ -147,7 +156,7 @@ const gccCompile = async (request) => {
 
     if (!key || !language) return result;
 
-    if (language === '1') {
+    if (language === '1' || language === '0') {
         const filesCreated = sourcePreprocess({ ...request });
         result.status = filesCreated.status;
         if (filesCreated.status !== 'OK') {
@@ -155,7 +164,7 @@ const gccCompile = async (request) => {
             return result;
         }
 
-        const compiled = await compileSource(key);
+        const compiled = await compileSource(key, language);
         result.status = compiled.status;
         if (compiled.status !== 'OK') {
             result.message = 'Internal system error';
@@ -187,7 +196,7 @@ const gccChecker = async (request) => {
 
     if (!key || !language) return result;
 
-    if (language === '1') {
+    if (language === '1' || language === '0') {
         const filesCreated = sourcePreprocess({ ...request });
         result.status = filesCreated.status;
         if (filesCreated.status !== 'OK') {
