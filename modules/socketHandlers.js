@@ -16,7 +16,7 @@ const startGCCRunEngine = async () => {
         const request = data.request;
         const response = await gccRunEngine(request);
         
-        if (request.key && request.requestType === 'run') {
+        if (request.key) {
             await rmdir(request.key);
         }
  
