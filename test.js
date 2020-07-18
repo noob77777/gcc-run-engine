@@ -1,8 +1,10 @@
 const io = require('socket.io-client');
-const socket = io('http://localhost:3000/');
+const socket = io('http://localhost:3000');
 
 socket.on('response', (data) => {
     console.log(data);
+    if (data.key === 'testzp3e') {
+    }
 });
 
 const sourceCode = `
@@ -26,9 +28,10 @@ const stdin = `
 `;
 
 const request = {
-    requestType: 'delete',
-    stdin: stdin,
-    stdout: '10',
+    requestType: 'check',
+    sourceCode: sourceCode,
+    stdin: '10',
+    stdout: '10 10',
     key: key,
     language: language,
 };

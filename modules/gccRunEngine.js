@@ -72,7 +72,12 @@ const sourcePreprocess = ({ key, stdin, sourceCode }) => {
 };
 
 const checkOutput = (expectedOut, Out) => {
-    return true;
+    const filterCallback = (x) => {
+        return x !== '';
+    };
+    const exp = expectedOut.split(/ |\n/).filter(filterCallback);
+    const out = Out.split(/ |\n/).filter(filterCallback);
+    return JSON.stringify(exp) === JSON.stringify(out);
 };
 
 const gccRun = async (request) => {
