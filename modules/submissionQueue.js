@@ -1,6 +1,7 @@
 const asyncRedis = require('async-redis');
 const redis = require('redis');
 const constants = require('./constants');
+const Logger = require('./Logger.js');
 const SUBMISSION_QUEUE = 'submission-queue';
 const MUTEX = 'mutex';
 
@@ -11,7 +12,7 @@ const redisGetClient = () => {
     });
 
     client.on('error', (err) => {
-        console.log(`error: ${err}`);
+        Logger.LOG(`error: ${err}`);
     });
 
     return client;
@@ -81,7 +82,7 @@ const startProcessExclusively = (process) => {
         redisStartProcessing(tempClient, process);
     } catch (err) {
         tempClient.quit();
-        console.log(`error: ${err}`);
+        Logger.LOG(`error: ${err}`);
     }
 };
 
