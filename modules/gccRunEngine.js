@@ -1,7 +1,7 @@
 const { exec } = require('child_process');
 const fs = require('fs');
 const constants = require('./constants');
-const Logger = require("./Logger.js");
+const Logger = require('./Logger.js');
 
 const execShellCommand = (cmd) => {
     return new Promise((resolve, reject) => {
@@ -30,7 +30,6 @@ cat ${getFile(key)}.in | timeout ${constants.MAX_TIMEOUT}s ${getFile(key)}
     const { error, stdout, stderr } = await execShellCommand(cmd);
 
     if (error) {
-        //console.log(`error: ${error.message}`);
         Logger.LOG(`error: ${error.message}`);
         return { status: 'ERROR' };
     }
@@ -51,7 +50,6 @@ gcc ${getFile(key)}.c -o ${getFile(key)} -w
     const { error, stdout, stderr } = await execShellCommand(cmd);
 
     if (error) {
-        //console.log(`error: ${error.message}`);
         Logger.LOG(`error: ${error.message}`);
     }
 
@@ -77,7 +75,6 @@ const sourcePreprocess = ({ key, stdin, sourceCode, language }) => {
             fs.writeFileSync(getFile(key) + '.c', sourceCode);
         }
     } catch (error) {
-        //console.log(`error: ${error.message}`);
         Logger.LOG(`error: ${error.message}`);
         return { status: 'ERROR' };
     }
@@ -242,7 +239,6 @@ rm -rf ${getPath(key)}
 
     const { error } = await execShellCommand(cmd);
     if (error) {
-        //console.log(`error: ${error.message}`);
         Logger.LOG(`error: ${error.message}`);
     }
 };

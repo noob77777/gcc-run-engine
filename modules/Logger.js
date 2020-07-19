@@ -1,28 +1,26 @@
-const LOG =(error) => {
-  const fs = require('fs');
+const fs = require('fs');
 
-  const dir = './LogFiles';
+const LOG = (error) => {
+    const dir = './logs';
 
-  if (!fs.existsSync(dir)){
-      fs.mkdirSync(dir);
-  }
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
 
-  const dateObj = new Date();
-  const month = dateObj.getUTCMonth() + 1;
-  const day = dateObj.getUTCDate();
-  const year = dateObj.getUTCFullYear();
+    const dateObj = new Date();
+    const month = dateObj.getUTCMonth() + 1;
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
 
-  const fileName = year + "-" + month + "-" + day + ".txt";
-  //console.log(fileName);
+    const fileName = year + '-' + month + '-' + day + '.log';
 
-  const content=dateObj.toString().replace(/T/, ':').replace(/\.\w*/, '')+"\t"+error.toString()+"\n\n";
-  //console.log(content);
+    const content =
+        dateObj.toString().replace(/T/, ':').replace(/\.\w*/, '') +
+        '\t' +
+        error.toString() +
+        '\n\n';
 
-
-  //fs.open(dir+"/"+fileName, "w", (err) => {if (err) console.log(err);});
-  fs.appendFile(dir+"/"+fileName,content,(err) => {});
-  //console.log("write complete");
-
+    fs.appendFile(dir + '/' + fileName, content, (err) => {});
 };
 
 module.exports = { LOG: LOG };

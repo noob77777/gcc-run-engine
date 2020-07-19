@@ -75,3 +75,10 @@ for (let i = 0; i < 5; i++) {
 
 socket.emit('request', { ...request });
 socket.emit('request', { ...request, key: 'testcpp' });
+
+socket.emit('request', {
+    ...request,
+    requestType: 'run',
+    key: 'error',
+    sourceCode: 'bruh;',
+});
