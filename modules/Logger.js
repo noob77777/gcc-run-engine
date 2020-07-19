@@ -12,11 +12,16 @@ const LOG =(error) => {
   const day = dateObj.getUTCDate();
   const year = dateObj.getUTCFullYear();
 
-  const fileName = year + "/" + month + "/" + day;
+  const fileName = year + "-" + month + "-" + day + ".txt";
+  //console.log(fileName);
 
-  const content=dateObj.toString().replace(/T/, ':').replace(/\.\w*/, '')+'\t'+error.toString()+'\n\n'
+  const content=dateObj.toString().replace(/T/, ':').replace(/\.\w*/, '')+"\t"+error.toString()+"\n\n";
+  //console.log(content);
 
-  fs.appendFile('dir/'+fileName,content,function (err) {})
+
+  //fs.open(dir+"/"+fileName, "w", (err) => {if (err) console.log(err);});
+  fs.appendFile(dir+"/"+fileName,content,(err) => {});
+  //console.log("write complete");
 
 };
 
