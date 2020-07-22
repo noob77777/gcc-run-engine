@@ -247,7 +247,7 @@ const deleteKey = async (request) => {
     if (request.key) {
         await rmdir(request.key);
     }
-    return { status: 'OK' };
+    return { status: 'OK', key: request.key };
 };
 
 const gccRunEngine = async (request) => {
